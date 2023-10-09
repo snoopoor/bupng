@@ -6,7 +6,7 @@ The [PNG specification](http://www.libpng.org/pub/png/spec/1.2/PNG-Contents.html
 
 # Usage
 
-```
+```javascript
 import { BuPNG } from './bupng';
 const bp = new BuPNG(200,200);
 ```
