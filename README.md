@@ -20,3 +20,14 @@ console.log(bp.getBase64());
 bp.saveFile('/path/to/your/web/site/public_html/mycoolpng.png');
 //'<img src="mycoolpng.png">'
 ```
+
+# Example
+
+![Output result](example1.png)
+![Outpur source](example2.png)
+
+See index.js.
+
+# Benchmark
+
+BuPNG renders about 30-40 png files with size of 1000x1000 px in one second on one 2600 MHz virtual CPU core. See benchmark.js.
