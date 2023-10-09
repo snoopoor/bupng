@@ -8,5 +8,15 @@ The [PNG specification](http://www.libpng.org/pub/png/spec/1.2/PNG-Contents.html
 
 ```javascript
 import { BuPNG } from './bupng';
-const bp = new BuPNG(200,200);
+const bp = new BuPNG(200, 200);
+
+bp.plotPixel(10, 10[, 255, 0, 0, 255]); //x, y, R, G, B, a
+bp.plotLine(10, 10, 100, 20[, 255, 0, 0, 255]); //x0, y0, x1, y1, R, G, B, a
+
+console.log(bp.getBase64());
+//data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAB...
+//``<img src="${bp.getBase64()}">``
+
+bp.saveFile('/path/to/your/web/site/public_html/mycoolpng.png');
+//'<img src="mycoolpng.png">'
 ```
