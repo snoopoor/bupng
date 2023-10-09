@@ -4,6 +4,8 @@ BuPNG is a javascript library used to create *.png files in [Bun](https://github
 The library is heavily based on the [qr-image](https://github.com/alexeyten/qr-image) project (which is unfortunately obsolete for several years), the most understandable implementation of png encoding I could find online. The project [pnglib-es6](https://github.com/IjzerenHein/pnglib-es6) was also helpful by "reverse engineering" of png image data from IDAT chunk.
 The [PNG specification](http://www.libpng.org/pub/png/spec/1.2/PNG-Contents.html) describes the file format in details.
 
+There is only one format of png data available, **RGB with alpha channel**, 8 bits per sample (8 * 4 = 32 bits per pixel), the same as *ImageData.data* property of a <canvas> element.
+
 # Usage
 
 ```javascript
@@ -26,8 +28,8 @@ bp.saveFile('/path/to/your/web/site/public_html/mycoolpng.png');
 ![Output result](example1.png)
 ![Outpur source](example2.png)
 
-See index.js.
+See [index.js](index.js).
 
 # Benchmark
 
-BuPNG renders about 30-40 png files with size of 1000x1000 px in one second on one 2600 MHz virtual CPU core. See benchmark.js.
+BuPNG renders about 30-40 png files with size of 1000x1000 px in one second on one 2600 MHz virtual CPU core. See [benchmark.js](benchmark.js).
