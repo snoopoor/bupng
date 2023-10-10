@@ -28,7 +28,7 @@ bp.version;
 
 # Example
 
-It is assumed you have a web server (Nginx etc.) to serve static content and redirect other requests to Bun backend. To use `BuPNG.saveFile()` Bun must have write access to your *public_html* directiry.
+It is assumed you have a web server (Nginx etc.) to serve static content and redirect other requests to Bun backend. To use `BuPNG.saveFile()` Bun must have write access to your *public_html* directory.
 ```
     location / {
         try_files           $uri @bun;
