@@ -21,6 +21,9 @@ console.log(bp.getBase64());
 
 bp.saveFile('/path/to/your/web/site/public_html/mycoolpng.png');
 //'<img src="mycoolpng.png">'
+
+bp.version;
+//BuPNG v0.2
 ```
 
 # Example
@@ -40,7 +43,7 @@ It is assumed you have a web server (Nginx etc.) to serve static content and red
 ![Output result](example/example1.png)
 ![Outpur source](example/example2.png)
 
-See [index.js](index.js).
+See [example.js](example.js).
 
 # Benchmark
 
