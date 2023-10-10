@@ -1,4 +1,6 @@
 class BuPNG {
+	static #VERSION = "BuPNG v0.2";
+	
 	static #PNG_SIGN = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 	static #PNG_IHDR = Buffer.from([0, 0, 0, 0x0d,		//length
 							0x49, 0x48, 0x44, 0x52,		//IHDR
@@ -14,32 +16,6 @@ class BuPNG {
 	static #PIXEL_SIZE = 4 //*RGBa*;
 	static #FILTER_SIZE = 1; //one byte before each scanline
 	
-	static #crc_table = [];
-	static {
-		//init crc_table
-		for (let i = 0; i < 256; i++) {
-		let c = i;
-		for (let j = 0; j < 8; j++) {
-			if (c & 1) {
-				c = 0xedb88320 ^ (c >>> 1);
-			} else {
-				c = c >>> 1;
-			}
-		}
-		BuPNG.#crc_table[i] = c >>> 0;
-		}
-	}
-	
-	static #crc32(buf) { //only 1 argument, Buffer of any size
-		let c = -1;
-		let l = buf.length;
-		for (let i = 0; i < l; i++) {
-			c = BuPNG.#crc_table[(c ^ buf[i]) & 0xff] ^ (c >>> 8);
-		}
-		c = (c ^ -1) >>> 0;
-		return c;
-	}		
-
 	#width;
 	#height;
 	#canvas;		//Buffer
@@ -54,7 +30,7 @@ class BuPNG {
 		const hdr = Buffer.from(BuPNG.#PNG_IHDR); //Buffer.from(<Buffer>|<Uint8Array>) new Buffer instance!
 		hdr.writeUInt32BE(this.#width, 8);
 		hdr.writeUInt32BE(this.#height, 12);
-		hdr.writeUInt32BE(BuPNG.#crc32(hdr.subarray(4, -4)), 21);
+		hdr.writeUInt32BE(Bun.hash.crc32(hdr.subarray(4, -4)), 21);
 		output.write(hdr.buffer);
 
 		const data = Buffer.concat([
@@ -65,7 +41,7 @@ class BuPNG {
 			Buffer.allocUnsafe(4)
 		]);
 		data.writeUInt32BE(data.length - 12, 0);
-		data.writeUInt32BE(BuPNG.#crc32(data.subarray(4, -4)), data.length - 4);
+		data.writeUInt32BE(Bun.hash.crc32(data.subarray(4, -4)), data.length - 4);
 		output.write(data.buffer);
 
 		output.write(BuPNG.#PNG_IEND.buffer);
@@ -130,6 +106,10 @@ class BuPNG {
 		return true;
 	}
 	
+	get version() {
+		return BuPNG.#VERSION;
+	}
+	
 	constructor(w, h) {
 		this.#width = w;
 		this.#height = h;
@@ -148,7 +128,13 @@ class BuPNG {
 		this.#mustRebuild = true; //png_buf is still empty
 	}
 
+}
 
+if (import.meta.main) {
+	console.log('Use as module only!');
+	process.exit();
 }
 
 export { BuPNG };
+
+
