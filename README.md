@@ -35,7 +35,7 @@ It is assumed you have a web server (Nginx etc.) to serve static content and red
     }
 
     location @bun {
-        proxy_pass          http://127.0.0.1:3033;
+        proxy_pass          http://127.0.0.1:3034;
         proxy_set_header    Host $host;
     }
 ```
