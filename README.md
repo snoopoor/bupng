@@ -25,8 +25,20 @@ bp.saveFile('/path/to/your/web/site/public_html/mycoolpng.png');
 
 # Example
 
-![Output result](example1.png)
-![Outpur source](example2.png)
+It is assumed you have a web server (Nginx etc.) to serve static content and redirect other requests to Bun backend. To use `BuPNG.saveFile()` Bun must have write access to your *public_html* directiry.
+```
+    location / {
+        try_files           $uri @bun;
+    }
+
+    location @bun {
+        proxy_pass          http://127.0.0.1:3033;
+        proxy_set_header    Host $host;
+    }
+```
+
+![Output result](example/example1.png)
+![Outpur source](example/example2.png)
 
 See [index.js](index.js).
 
